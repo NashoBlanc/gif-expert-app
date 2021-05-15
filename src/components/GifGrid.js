@@ -1,7 +1,13 @@
-import React, {useState}  from 'react';
+import React, {useState, useEffect} from 'react';
 
 export const GifGrid = ({ category}) => {
 
+
+    const [count, setcount] = useState(0);
+
+    useEffect(() => {
+        getGifs();
+    }, [])
     const getGifs = async () => {
         const url = 'https://api.giphy.com/v1/gifs/trending?q=Rick+and+Morty&limit=10&api_key=0s7Dc9iMNg3Dtt4WR3M3p5byoaLJlUqH';
         const res = await fetch(url);
@@ -18,7 +24,6 @@ export const GifGrid = ({ category}) => {
         console.log(gifs);
     }
 
-    getGifs();
 
     return (
         <div>
