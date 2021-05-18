@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { GifGridItem } from './GifGridItem';
-
+import { getGifs } from '../helpers/getGifs';
 export const GifGrid = ({ category}) => {
 
 
@@ -9,24 +9,9 @@ export const GifGrid = ({ category}) => {
 
 
     useEffect(() => {
-        getGifs();
-    }, [])
-    const getGifs = async () => {
-        const url = 'https://api.giphy.com/v1/gifs/trending?q=Rick+and+Morty&limit=10&api_key=0s7Dc9iMNg3Dtt4WR3M3p5byoaLJlUqH';
-        const res = await fetch(url);
-        const {data} = await res.json();
+        getGifs(category).then( (img) => setImages(img))
+    }, [category])
 
-
-        const gifs = data.map( img => {
-            return {
-                id: img.id,
-                title: img.title,
-                url: img.images?.downsized_medium.url
-            }
-        })
-
-        setImages(gifs);
-    }
 
 
     return (
